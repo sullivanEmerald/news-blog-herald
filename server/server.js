@@ -21,5 +21,5 @@ app.get('/api', (req, res) => {
 
 
 app.listen(process.env.PORT, () => {
-    console.log(`Exchange running on port ${process.env.PORT}`)
+    console.log(`Herald running on port ${process.env.PORT}`)
 })

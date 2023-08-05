@@ -3,6 +3,9 @@ const app = express()
 const logger =  require('morgan')
 const connectDB =  require('./config/database')
 const cors =  require('cors')
+const blog =  require('./routes/api')
+const main  =  require('./routes/main')
+
 
 // connecting my environmental variables with the app
 require('dotenv').config({ path : './config/.env'})
@@ -12,14 +15,14 @@ require('dotenv').config({ path : './config/.env'})
 connectDB()
 
 // setting up the app
+app.use(express.urlencoded({ extended : true}))
+app.use(express.json())
 app.use(logger('dev'))
 app.use(cors())
 
-app.get('/api', (req, res) => {
-    res.json({ user  : ['sullivan', 'emerald', 'Joshua']})
-})
-
-
+app.use('/', main)
+app.use('/api', blog)
+    
 app.listen(process.env.PORT, () => {
     console.log(`Herald running on port ${process.env.PORT}`)
 })

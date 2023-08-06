@@ -43,6 +43,11 @@ const blogSchema = new mongoose.Schema({
     category : {
         type : String,
         required: true,
+    },
+
+    like  : {
+        type : Number,
+        required : true
     }
 
     

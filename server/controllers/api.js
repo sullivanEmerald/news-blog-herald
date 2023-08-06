@@ -13,8 +13,6 @@ module.exports  = {
         const year = date.getFullYear();  
         const time = date.toLocaleTimeString();
 
-        console.log(req.body)
-        console.log(req.file)
         try {
           if (!req.file) {
             return res.status(400).json({ error: 'No file provided' });
@@ -31,7 +29,8 @@ module.exports  = {
             cloudinaryId: result.public_id,
             time: time,
             day: dayName,
-            category : req.body.category
+            category : req.body.category,
+            like : 0
           });
       
           return res.json({ msg: 'Data saved successfully', imageUrl: result.secure_url });
@@ -41,6 +40,16 @@ module.exports  = {
           return res.status(500).json({ error: 'Something went wrong' });
         }
       },
+
+
+      updateLikes : async (req, res) => {
+        console.log(req.params.id)
+      },
+
+
+      getPost :  async (req, res) => {
+        console.log(req.params.id)
+      }
       
 }
 

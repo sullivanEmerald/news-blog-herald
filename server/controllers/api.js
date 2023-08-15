@@ -49,6 +49,17 @@ module.exports  = {
 
       getPost :  async (req, res) => {
         console.log(req.params.id)
+        try {
+          const post = await Blogs.findById(req.params.id)
+          res.json(post)
+        } catch (error) {
+          res.status(500).json({ msg : error})
+        }
+      },
+
+
+      updatePost : async (req, res) => {
+        console.log(req.params.id)
       }
       
 }

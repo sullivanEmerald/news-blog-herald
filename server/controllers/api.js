@@ -1,5 +1,6 @@
 const Blogs = require('../model/blogs');
 const cloudinary = require('../middlewares/cloudinary');
+const Comment = require('../model/comments')
 
 module.exports  = {
 
@@ -43,9 +44,34 @@ module.exports  = {
 
 
       updateLikes : async (req, res) => {
-        console.log(req.params.id)
+        try {
+          const updateBlog =  await Blogs.findByIdAndUpdate(req.params.id, {
+            $inc : {
+              like : 1
+            }
+          })
+
+          if(updateBlog){
+            const newUpdatedBlog = await Blogs.findById(req.params.id)
+            res.json({likes : newUpdatedBlog.like})
+          }else{
+            res.json({ likes : 'Did not updated'})
+          }
+        } catch (error) {
+          console.error(error)
+        }
       },
 
+
+      removePost : async (req, res) => {
+        try {
+          await Blogs.findByIdAndDelete(req.params.id)
+          console.log('deleted')
+          res.json({ msg : 'deleted'})
+        } catch (error) {
+          console.error(error)
+        }
+      },
 
       getPost :  async (req, res) => {
         console.log(req.params.id)
@@ -59,7 +85,23 @@ module.exports  = {
 
 
       updatePost : async (req, res) => {
-        console.log(req.params.id)
+        try { 
+         const updateRecord =  await Blogs.findByIdAndUpdate(req.params.id, {
+            $set : {
+              title : req.body.title,
+              snippet : req.body.snippet,
+              body : req.body.body
+            }
+          }) 
+          
+          if(updateRecord) {
+             return res.json({ msg : 'Update have been made successfully'})
+          }else{
+            return res.json({ msg : 'Update have been made failed'})
+          }
+        } catch (error) {
+          console.error(error)
+        }
       }
       
 }

@@ -5,6 +5,7 @@ const connectDB =  require('./config/database')
 const cors =  require('cors')
 const blog =  require('./routes/api')
 const main  =  require('./routes/main')
+const comment =  require('./routes/comment')
 
 
 // connecting my environmental variables with the app
@@ -22,6 +23,7 @@ app.use(cors())
 
 app.use('/', main)
 app.use('/api', blog)
+app.use('/comment', comment)
     
 app.listen(process.env.PORT, () => {
     console.log(`Herald running on port ${process.env.PORT}`)

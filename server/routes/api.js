@@ -5,7 +5,8 @@ const newsController = require('../controllers/api');
 
 router.post('/news', multerConfig.single('image'), newsController.createNews);
 router.put('/:id/news', newsController.updateLikes)
+router.delete('/:id/remove', newsController.removePost)
 router.get('/news/:id', newsController.getPost)
-router.post('/blog/:id', newsController.updatePost)
+router.put('/blog/:id', newsController.updatePost)
 
 module.exports = router;

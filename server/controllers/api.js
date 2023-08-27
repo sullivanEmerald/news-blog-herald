@@ -102,6 +102,21 @@ module.exports  = {
         } catch (error) {
           console.error(error)
         }
+      },
+
+
+      fetchOnePost :  async (req, res) => {
+        try {
+          let mainPost = await Blogs.findById(req.params.id)
+          console.log(mainPost)
+          if(mainPost){
+            res.json(mainPost)
+          }else{
+            res.json({msg : "Did find the Data"})
+          }
+        } catch (error) {
+          console.error(error)
+        }
       }
       
 }

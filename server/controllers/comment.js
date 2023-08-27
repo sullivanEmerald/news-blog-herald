@@ -1,3 +1,4 @@
+const { LogError } = require('concurrently');
 const Comment =  require('../model/comments')
 
 module.exports = { 
@@ -36,5 +37,21 @@ module.exports = {
         } catch (error) {
             res.json(400).json({msg : error})
         }
-    }  
+    } ,
+
+
+    deleteComment : async (req, res) => {
+        try {
+            const { id } = req.params
+            const deleteComment = await Comment.findByIdAndDelete(id)
+            if(deleteComment){
+                res.json({ msg : 'Comment Delete'})
+                console.log('deleted')
+            }else{
+                res.json({ msg : 'Server not responding'})
+            }
+        } catch (error) {
+            console.error(error)
+        }
+    }
 }
